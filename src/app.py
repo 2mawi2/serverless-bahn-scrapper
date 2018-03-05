@@ -20,7 +20,8 @@ def search(event=None, context=None):
     data = request.get_json()
     validate(data)
 
-    origin, destination = static.stations[data["origin"]], static.stations[data["destination"]]
+    origin = static.stations[data["origin"]]
+    destination = static.stations[data["destination"]]
     time = get_time(data)
 
     data = BahnScrapper().get_conn_details(origin, destination, time)
@@ -29,19 +30,21 @@ def search(event=None, context=None):
 
 
 def validate(data):
-    if data is None or data["origin"] is None or data["destination"] is None:
+    if data is None or "origin" not in data or "destination" not in data:
         abort(404)
     if data["origin"] == data["destination"]:
+        abort(404)
+    if data["origin"] not in static.stations.keys() or data["destination"] not in static.stations.keys():
         abort(404)
 
 
 def get_time(data):
-    if "time" not in data.keys():
+    if "time" not in data:
         return datetime.datetime.now(pytz.timezone('Europe/Amsterdam'))
     try:
         return parser.parse(data["time"])
     except:
-        abort(418)  # I’m a teapot
+        abort(404)
 
 
 if __name__ == '__main__':
