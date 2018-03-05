@@ -1,0 +1,6 @@
+dateutil
+pytz
+requests
+beautifulsoup4
+Flask>=0.12.2
+zappa>=0.45.1
