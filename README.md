@@ -15,17 +15,17 @@ pip install -r requirements.txt
 Add your AWS credential file to the user dir:
 https://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html
 
-#Deploy:
+# Deploy:
 ```
 zappa deploy
 ```
 
-#Update
+# Update
 ```
 zappa update
 ```
 
-#Undeploy
+# Undeploy
 ```
 zappa undeploy
 ```
